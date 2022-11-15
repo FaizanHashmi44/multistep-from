@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Multi Step Form</title>
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+    <style>
+      body{
+        background: #eaeaea;
+      }
+            
+      form{
+        background: #ffffff;    
+        margin: 100px auto;
+        padding: 15px 40px 40px 40px;
+        width: 70%;
+      }
+
+      .tab p{
+        font-size: 20px;
+        margin: 0 0 10px 0;
+      }
+      
+      input{
+        margin: 10px 0;
+        padding: 10px;
+        box-sizing: border-box;
+        width: 100%;
+        font-size: 17px;
+        border: 1px solid #aaaaaa;
+      }
+      
+      .index-btn-wrapper{
+        display: flex;
+      }
+      
+      .index-btn{
+        margin: 20px 15px 0 0;
+        background: #04AA6D;
+        color: #ffffff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 17px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      
+      .index-btn:hover{
+        opacity: 0.8;
+      }
+      
+      .step{
+        height: 30px;
+        width: 30px;
+        line-height: 30px;
+        margin: 0 2px;
+        color: white;
+        background-color: #04AA6D;
+        border-radius: 50%;
+        display: inline-block;
+      }
+      .active{
+        background-color: red;
+      } 
+
+    </style>
+  </head>
+  <body>
+    <form id="myForm" action="" >
+      <h1 align = center>Register</h1>
+
+      <div class="steps-label" style="text-align:center;">
+        <span class="step active step-1" data-id = "1">1</span>
+        <span class="step step-2" data-id = "2">2</span>
+        <span class="step step-3" data-id = "3">3</span>
+        <span class="step step-4" data-id = "4">4</span>
+        <span class="step step-5" data-id = "5">5</span>
+      </div>
+      <div class="tab tab-1 " >
+        <p>Name:</p>
+        <input type = "text" placeholder="First Name" name="firstname">
+        <input type = "text" placeholder="Last Name" name="lastname">
+        <div class="index-btn-wrapper">
+          <button class="index-btn next-btn"  data-next="2">Next</button>
+        </div>
+      </div>
+
+      <div class="tab tab-2" >
+        <p>Contact Info:</p>
+        <input type = "text" placeholder="Email" name="email">
+        <input type = "text" placeholder="Phone" name="phone">
+        <div class="new">
+          <input type="text">
+        </div>
+        <div class="index-btn-wrapper">
+          <div class="index-btn back-btn" data-previ="1">Previous</div>
+          <div class="index-btn next-btn" data-next="3">Next</div>
+        </div>
+      </div>
+
+      <div class="tab tab-3" >
+        <p>Birthday:</p>
+        <input type = "text" placeholder="dd" name="dd">
+        <input type = "text" placeholder="mm" name="mm">
+        <input type = "text" placeholder="yy" name="yy">
+        <div class="index-btn-wrapper">
+          <div class="index-btn back-btn" data-previ="2">Previous</div>
+          <div class="index-btn next-btn" data-next="4">Next</div>
+        </div>
+      </div>
+
+      <div class="tab tab-4" >
+        <p>Login Info:</p>
+        <input type = "text" placeholder="Username" name="username">
+        <input type = "password" placeholder="Password" name="password">
+        <div class="index-btn-wrapper">
+          <div class="index-btn back-btn" data-previ="3">Previous</div>
+          <div class="index-btn next-btn" data-next="5">Next</div>
+        </div>
+      </div>
+
+      <div class="tab tab-5" >
+        <div class="index-btn-wrapper">
+          <div class="index-btn back-btn" data-previ="4">Previous</div>
+          <button class = "index-btn next-btn" type="submit" name="submit">Submit</button>
+        </div>
+      </div>
+      
+    </form>
+</body> 
+<script>
+  $(document).ready(function(){ 
+    $('.tab').css('display', 'none');   
+    $('.tab-1').css('display', 'block');
+  //label change
+  $('.step').on('click', function(){
+    $('.step').removeClass('active');
+    $(this).addClass('active');    
+    var id= $(this).data('id');
+    $('.tab').hide();
+    $('.tab-'+id).show();
+  });
+
+
+//next change
+    $('.next-btn').on('click', function(){
+     var id = $(this).data('next');
+     console.log(id);
+      $('.step').removeClass('active');
+      $('.step-'+id).addClass('active');
+      $('.tab').hide();
+      $('.tab-'+id).show();
+}); 
+
+//back change   
+$('.back-btn').on('click', function(){
+    
+    var id= $(this).data('previ');
+    
+    $('.step').removeClass('active');
+    $('.step-'+id).addClass('active');
+    $('.tab').hide();
+    $('.tab-'+id).show();
+});
+$('.add').click(function(){
+  $('.new').append("<div> <input type='text'> </div>")
+});
+});
+</script>
+</html>
